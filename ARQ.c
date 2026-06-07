@@ -1,45 +1,31 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-
 int main()
 {
     int totalframes, windowsize;
-    int i;
-
+    int i, base = 0, loss;
     printf("Enter total number of frames: ");
     scanf("%d", &totalframes);
-
     printf("Enter window size: ");
     scanf("%d", &windowsize);
-
     int received[100] = {0};   
-
     srand(time(0));
-
-    int base = 0;
-
     while(base < totalframes)
     {
         printf("\nSending frames: ");
-
-        
         for(i = base; i < base + windowsize && i < totalframes; i++)
         {
             if(received[i] == 0)
                 printf("%d ", i);
         }
-
         printf("\n");
-
-       
         for(i = base; i < base + windowsize && i < totalframes; i++)
         {
             if(received[i] == 0)
             {
-                int lost = rand() % 2;
-
-                if(lost)
+                loss = rand() % 2;
+                if(loss)
                 {
                     printf("Frame %d lost\n", i);
                 }
@@ -50,15 +36,11 @@ int main()
                 }
             }
         }
-
-       
-        while(received[base] == 1 && base < totalframes)
+        while(base < totalframes && received[base] == 1)
         {
             base++;
         }
     }
-
     printf("\nAll frames transmitted successfully!\n");
-
     return 0;
 }

@@ -13,7 +13,7 @@ int main()
     while(base < totalframes)
     {
         printf("\nSending frames:");
-        for(i < base; i < base + windowsize && i < totalframes; i++)
+        for(i = base; i < base + windowsize && i < totalframes; i++)
         {
             printf("%d ", i);
         }

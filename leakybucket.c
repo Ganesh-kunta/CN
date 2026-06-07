@@ -1,32 +1,37 @@
 #include<stdio.h>
-
 int main() {
-    int bucket=0, size, rate, n, input;
-
+    int bucketsize, outputrate, n, i;
+    int input[20], bucket=0;
     printf("Enter bucket size: ");
-    scanf("%d",&size);
-
+    scanf("%d",&bucketsize);
     printf("Enter output rate: ");
-    scanf("%d",&rate);
-
+    scanf("%d",&outputrate);
     printf("Enter number of inputs: ");
     scanf("%d",&n);
-
-    for(int i=0;i<n;i++) {
-        printf("Enter packet size: ");
-        scanf("%d",&input);
-
-        bucket += input;
-
-        if(bucket > size) {
-            printf("Overflow!\n");
-            bucket = size;
+    printf("Enter input packets:\n");
+    for(int i=0;i<n;i++) 
+    {
+        scanf("%d",&input[i]);
+    }
+    printf("\ntime\tincoming\tbucket\toutgoing\tremaining\n");
+    for(i=0; i<n; i++)
+    {
+        int incoming = input[i];
+        int bucketbefore = bucket;
+        if(bucket + incoming > bucketsize)
+        {
+            int accepted = bucketsize - bucket;
+            int overflow = incoming - accepted;
+            bucket = bucketsize;
+            printf("%d\t%d\t\t%d\t\t-\t\t%d(overflow %d)\n", i+1, incoming, bucketbefore, bucket, overflow);
         }
-
-        printf("Bucket content: %d\n", bucket);
-
-        bucket -= rate;
-        if(bucket < 0) bucket = 0;
+        else
+        {
+            bucket += incoming;
+            int outgoing = (bucket < outputrate)? bucket: outputrate;
+            bucket -= outgoing;
+            printf("%d\t%d\t\t%d\t\t %d\t\t%d\n", i+1, incoming, bucketbefore, outgoing, bucket);
+        }
     }
     return 0;
 }
