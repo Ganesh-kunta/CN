@@ -6,7 +6,8 @@ int main() {
     scanf("%s", data);
 
     printf("Stuffed Data: F");
-    for(int i=0; data[i]!='\0'; i++) {
+    for(int i=0; data[i]!='\0'; i++)
+    {
         if(data[i]=='E')
         {
             printf("E");
