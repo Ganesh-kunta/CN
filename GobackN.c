@@ -17,7 +17,7 @@ int main()
         {
             printf("%d ", i);
         }
-        int lossflag = rand()%2;
+        int lossflag = rand() % 2;
         if(lossflag)
         {
             int loss = rand() % windowsize + base;
